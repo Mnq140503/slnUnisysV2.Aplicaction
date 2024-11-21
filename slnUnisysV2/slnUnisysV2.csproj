@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\slnUnisysV2.Core\slnUnisysV2.Core.csproj" />
+    <ProjectReference Include="..\slnUnisysV2.IOC\slnUnisysV2.IOC.csproj" />
+  </ItemGroup>
+
+</Project>

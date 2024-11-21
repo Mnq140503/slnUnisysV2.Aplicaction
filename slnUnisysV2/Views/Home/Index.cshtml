@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<select id="selectElement" class="selectElement form-select"
+        data-url="/Home/LineasNegocio"
+        data-term="NOMBRE"            
+        data-value="CODIGO"           
+        data-medida="dos"                     
+        data-tipo-medida="lg">            
+</select>
+
+<select id="multiSelectElement" class="multiSelectElement form-select" multiple="multiple"
+        data-url="/Home/LineasNegocio"
+    data-term="NOMBRE"
+    data-value="CODIGO"
+    data-medida="cuatro"
+    data-tipo-medida="lg">
+</select>
+
+<!-- Input Autocompletado -->
+<input type="text" id="autocomplete" class="autocomplete" data-url="/Home/LineasNegocio" data-param="UserName" data-term="NOMBRE" data-value="CODIGO" placeholder="Buscar línea de negocio..." data-medida="tres"
+       data-tipo-medida="sm" />
+
+<!-- Campo de Entrada para Autocompletado -->
+<input type="text"
+       class="autocomplete" 
+       id="autocomplete" 
+       data-url="/Home/BuscarCliente"   
+       data-param="RazonSocial"       
+       data-term="NOMBRE"             
+       data-value="CODIGO"
+       placeholder="Buscar cliente..." 
+       data-medida="dos"
+       data-tipo-medida="sm" />
+
+@section Scripts{
+    <script src="~/js/CompAutoComplete.js" asp-append-version="true"></script>
+    <script src="~/js/CompList.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script src="~/js/CompListMulti.js" asp-append-version="true"></script>
+}
+
+
+
+
+
+
+
