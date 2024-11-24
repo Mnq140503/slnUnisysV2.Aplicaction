@@ -15,6 +15,14 @@
         data-tipo-medida="lg">            
 </select>
 
+<select id="selectElement2" class="selectElement form-select"
+        data-url="/Home/LineasNegocio"
+        data-term="NOMBRE"
+        data-value="CODIGO"
+        data-medida="dos"
+        data-tipo-medida="lg">
+</select>
+
 <select id="multiSelectElement" class="multiSelectElement form-select" multiple="multiple"
         data-url="/Home/LineasNegocio"
     data-term="NOMBRE"
@@ -38,6 +46,58 @@
        placeholder="Buscar cliente..." 
        data-medida="dos"
        data-tipo-medida="sm" />
+
+<select class="autocomplete"
+        id="autocomplete"
+        data-url="/Home/BuscarCliente"
+        data-param="RazonSocial"
+        data-term="NOMBRE"
+        data-value="CODIGO"
+        data-medida="dos"
+        data-tipo-medida="sm">
+    <option value="">Seleccione un cliente...</option>
+</select>
+
+<input type="text" 
+       class="autocomplete" 
+       id="cliente-autocomplete" 
+       data-url="/Home/BuscarCliente"   
+       data-param="RazonSocial"       
+       data-term="NOMBRE"             
+       data-value="CODIGO"
+       name="cliente_nombre"
+       placeholder="Buscar cliente..." 
+       data-hidden-name="cliente_codigo"
+       data-medida="cuatro"
+       data-tipo-medida="sm" />
+
+<!-- Solo necesitas el input principal -->
+<input id="cliente"
+       type="text"
+       class="autocomplete"
+       id="cliente-autocomplete"
+       data-url="/Home/BuscarCliente"
+       data-param="RazonSocial"
+       data-term="NOMBRE"
+       data-value="CODIGO"
+       placeholder="Buscar cliente..."
+       data-medida="dos"
+       data-tipo-medida="sm" />
+
+<input id="cliente" 
+       type="text"
+       class="autocomplete"
+       data-url="/Home/BuscarCliente2"
+       data-param="RazonSocial"
+       data-term="NOMBRE"
+       data-value="CODIGO"
+       placeholder="Buscar cliente..."
+       data-medida="dos"
+       data-dependency-valor="#selectElement"
+       data-dependency-lineas="#autocomplete-value"
+       data-tipo-medida="sm" />
+
+
 
 @section Scripts{
     <script src="~/js/CompAutoComplete.js" asp-append-version="true"></script>

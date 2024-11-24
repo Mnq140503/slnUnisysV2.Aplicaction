@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "properties": {
+    "data-url": {
+      "type": "string",
+      "description": "Define la URL para la búsqueda"
+    },
+    "data-param": {
+      "type": "string",
+      "description": "Especifica el nombre del parámetro principal"
+    },
+    "data-dependency-*": {
+      "type": "string",
+      "description": "Define dependencias dinámicas"
+    },
+    "data-medida": {
+      "type": "string",
+      "enum": [ "uno", "dos", "tres", "cuatro" ],
+      "description": "Establece el tamaño del control"
+    },
+    "data-tipo-medida": {
+      "type": "string",
+      "enum": [ "sm", "lg", "xl" ],
+      "description": "Establece el tamaño de Bootstrap"
+    }
+  },
+  "additionalProperties": true
+}

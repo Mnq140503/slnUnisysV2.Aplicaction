@@ -1,9 +1,18 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using slnUnisysV2.IOC;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.InyectarDependencia();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(option =>
+    {
+        //option.LoginPath = "/Acceso/Login";
+        option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+    });
+
 
 var app = builder.Build();
 
