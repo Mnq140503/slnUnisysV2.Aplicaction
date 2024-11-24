@@ -260,23 +260,23 @@ $(document).ready(function () {
         var tipoMedida = inputElement.data("tipo-medida");
 
         // Ajustar el tamaño del campo de entrada según el atributo 'medida'
-        switch (medida) {
-            case "uno":
-                inputElement.css("width", "8%");
-                break;
-            case "dos":
-                inputElement.css("width", "16%");
-                break;
-            case "tres":
-                inputElement.css("width", "24%");
-                break;
-            case "cuatro":
-                inputElement.css("width", "32%");
-                break;
-            default:
-                inputElement.css("width", "100%");
-                break;
-        }
+        //switch (medida) {
+        //    case "uno":
+        //        inputElement.css("width", "8%");
+        //        break;
+        //    case "dos":
+        //        inputElement.css("width", "16%");
+        //        break;
+        //    case "tres":
+        //        inputElement.css("width", "24%");
+        //        break;
+        //    case "cuatro":
+        //        inputElement.css("width", "32%");
+        //        break;
+        //    default:
+        //        inputElement.css("width", "100%");
+        //        break;
+        //}
 
         // Establecer las clases de Bootstrap según 'tipo-medida'
         if (tipoMedida) {

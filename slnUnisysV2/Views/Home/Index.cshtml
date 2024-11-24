@@ -97,7 +97,26 @@
        data-dependency-lineas="#autocomplete-value"
        data-tipo-medida="sm" />
 
+<autocomplete
+    medida="Cuatro"
+    param-name="RazonSocial"
+    term="NOMBRE"
+    value="CODIGO"
+    placeholder="buuscar cliente tag"
+    id="tag1"
+    url="/Home/BuscarCliente2"
+    tipo-medida="sm"></autocomplete>
 
+<autocomplete
+    dependencias-valor="#selectElement"
+              medida="Cuatro"
+              param-name="RazonSocial"
+              term="NOMBRE"
+              value="CODIGO"
+              placeholder="buuscar cliente tag"
+              id="tag2"
+              url="/Home/BuscarCliente2"
+              tipo-medida="sm"></autocomplete>
 
 @section Scripts{
     <script src="~/js/CompAutoComplete.js" asp-append-version="true"></script>

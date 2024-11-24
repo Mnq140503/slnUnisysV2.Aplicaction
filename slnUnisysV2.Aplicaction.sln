@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35506.116 d17.12
+VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "slnUnisysV2", "slnUnisysV2\slnUnisysV2.csproj", "{46F22ECE-D156-4C24-8184-F6F6033F590E}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "slnUnisysV2.IOC", "slnUnisysV2.IOC\slnUnisysV2.IOC.csproj", "{8F710D19-E666-41B0-8E7E-AC6C374C5C98}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "slnUnisysV2.Utilidades", "slnUnisysV2.Utilidades\slnUnisysV2.Utilidades.csproj", "{799D4479-38CA-4D45-9A90-53DE828334C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "slnUnisysV2.TagHelper", "slnUnisysV2.Aplication.TagHelper\slnUnisysV2.TagHelper.csproj", "{BBB30BE0-DB22-4BB1-9028-9F5358F01945}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{799D4479-38CA-4D45-9A90-53DE828334C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{799D4479-38CA-4D45-9A90-53DE828334C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{799D4479-38CA-4D45-9A90-53DE828334C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBB30BE0-DB22-4BB1-9028-9F5358F01945}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBB30BE0-DB22-4BB1-9028-9F5358F01945}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBB30BE0-DB22-4BB1-9028-9F5358F01945}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBB30BE0-DB22-4BB1-9028-9F5358F01945}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

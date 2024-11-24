@@ -84,7 +84,7 @@ namespace slnUnisysV2.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> BuscarCliente2(string RazonSocial, string Valor, string Lineas)
+        public async Task<IActionResult> BuscarCliente2(string RazonSocial, string Valor)
         {
             var soap = await _generalServices.BuscarCliente(RazonSocial, "mnunez");
 
