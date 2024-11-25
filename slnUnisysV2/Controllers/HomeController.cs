@@ -66,7 +66,19 @@ namespace slnUnisysV2.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> LineasNegocio() {
+        public async Task<IActionResult> LineasNegocio() 
+        {
+
+            var codPersonal = User.FindFirst("NameIdentifier")?.Value;
+
+            var soap = await _generalServices.LineasNegocios(codPersonal);
+
+            return StatusCode(StatusCodes.Status200OK, new { data = soap });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LineasNegocio2(string Valor)
+        {
 
             var codPersonal = User.FindFirst("NameIdentifier")?.Value;
 

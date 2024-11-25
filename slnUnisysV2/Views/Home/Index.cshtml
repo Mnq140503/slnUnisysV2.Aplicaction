@@ -7,58 +7,104 @@
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-<select id="selectElement" class="selectElement form-select"
-        data-url="/Home/LineasNegocio"
-        data-term="NOMBRE"            
-        data-value="CODIGO"           
-        data-medida="dos"                     
-        data-tipo-medida="lg">            
-</select>
+<h1>Select</h1>
+<div>
+    <div>
+        <h6>Selector Clasico</h6>
+        <select id="selectElement" class="selectElement form-select"
+                data-url="/Home/LineasNegocio"
+                data-term="NOMBRE"
+                data-value="CODIGO"
+                data-medida="dos"
+                data-tipo-medida="lg"
+                data-load-immediate="true">
+        </select>
+    </div>
+    <br/>
+    <div>
+        <h6>Selector Multiple</h6>
+        <select id="multiSelectElement" class="multiSelectElement form-select" multiple="multiple"
+                data-url="/Home/LineasNegocio"
+                data-term="NOMBRE"
+                data-value="CODIGO"
+                data-medida="cuatro"
+                data-tipo-medida="lg">
+        </select>
+    </div>
+    <br/>
+    <div>
+        <h6>Select Estandar</h6>
+        <UniList id="ln-list"
+                 medida="Cuatro"
+                 tipo-medida="lg"
+                 term="NOMBRE"
+                 value="CODIGO"
+                 url="/Home/LineaNegocio"
+                 data-load-immediate="true"></UniList>
+    </div>
+</div>
+<br>
 
-<select id="selectElement2" class="selectElement form-select"
-        data-url="/Home/LineasNegocio"
-        data-term="NOMBRE"
-        data-value="CODIGO"
-        data-medida="dos"
-        data-tipo-medida="lg">
-</select>
+<h1>Autocomplete</h1>
+<div>
+    <div>
+        <h6>Autocomplete Clasico</h6>
+        <input type="text"
+               class="autocomplete" 
+               id="autocomplete" 
+               data-url="/Home/BuscarCliente"   
+               data-param="RazonSocial"       
+               data-term="NOMBRE"             
+               data-value="CODIGO"
+               placeholder="Buscar cliente..." 
+               data-medida="cuatro"
+               data-tipo-medida="sm" />
+    </div>
+    <br/>
+    <div>
+        <h6>Autocomplete Estandar</h6>
+        <UniAutoComplete
+            medida="Cuatro"
+            param-name="RazonSocial"
+            term="NOMBRE"
+            value="CODIGO"
+            placeholder="Buscar Cliente..."
+            id="tag1"
+            url="/Home/BuscarCliente2"
+            tipo-medida="sm"></UniAutoComplete>
+    </div>
+    <br/>
+    <div>
+        <h6>Autocomplete con Dependencia Clasico</h6>
+        <input id="cliente" 
+               type="text"
+               class="autocomplete"
+               data-url="/Home/BuscarCliente2"
+               data-param="RazonSocial"
+               data-term="NOMBRE"
+               data-value="CODIGO"
+               placeholder="Buscar cliente..."
+               data-medida="dos"
+               data-dependency-valor="#selectElement"
+               data-tipo-medida="sm" />
+    </div>
+    <br/>
+    <div>
+        <h6>Autocomplete con Dependencia Estandar</h6>
+        <UniAutoComplete
+            dependencias-valor="#ln-list"
+            medida="Cuatro"
+            param-name="RazonSocial"
+            term="NOMBRE"
+            value="CODIGO"
+            placeholder="buuscar cliente tag"
+            id="tag2"
+            url="/Home/BuscarCliente2"
+            tipo-medida="sm"></UniAutoComplete>
+    </div>
+</div>
 
-<select id="multiSelectElement" class="multiSelectElement form-select" multiple="multiple"
-        data-url="/Home/LineasNegocio"
-    data-term="NOMBRE"
-    data-value="CODIGO"
-    data-medida="cuatro"
-    data-tipo-medida="lg">
-</select>
-
-<!-- Input Autocompletado -->
-<input type="text" id="autocomplete" class="autocomplete" data-url="/Home/LineasNegocio" data-param="UserName" data-term="NOMBRE" data-value="CODIGO" placeholder="Buscar línea de negocio..." data-medida="tres"
-       data-tipo-medida="sm" />
-
-<!-- Campo de Entrada para Autocompletado -->
-<input type="text"
-       class="autocomplete" 
-       id="autocomplete" 
-       data-url="/Home/BuscarCliente"   
-       data-param="RazonSocial"       
-       data-term="NOMBRE"             
-       data-value="CODIGO"
-       placeholder="Buscar cliente..." 
-       data-medida="dos"
-       data-tipo-medida="sm" />
-
-<select class="autocomplete"
-        id="autocomplete"
-        data-url="/Home/BuscarCliente"
-        data-param="RazonSocial"
-        data-term="NOMBRE"
-        data-value="CODIGO"
-        data-medida="dos"
-        data-tipo-medida="sm">
-    <option value="">Seleccione un cliente...</option>
-</select>
-
-<input type="text" 
+@* <input type="text" 
        class="autocomplete" 
        id="cliente-autocomplete" 
        data-url="/Home/BuscarCliente"   
@@ -69,10 +115,10 @@
        placeholder="Buscar cliente..." 
        data-hidden-name="cliente_codigo"
        data-medida="cuatro"
-       data-tipo-medida="sm" />
+       data-tipo-medida="sm" /> *@
 
 <!-- Solo necesitas el input principal -->
-<input id="cliente"
+@* <input id="cliente"
        type="text"
        class="autocomplete"
        id="cliente-autocomplete"
@@ -83,44 +129,22 @@
        placeholder="Buscar cliente..."
        data-medida="dos"
        data-tipo-medida="sm" />
+ *@
 
-<input id="cliente" 
-       type="text"
-       class="autocomplete"
-       data-url="/Home/BuscarCliente2"
-       data-param="RazonSocial"
-       data-term="NOMBRE"
-       data-value="CODIGO"
-       placeholder="Buscar cliente..."
-       data-medida="dos"
-       data-dependency-valor="#selectElement"
-       data-dependency-lineas="#autocomplete-value"
-       data-tipo-medida="sm" />
-
-<autocomplete
-    medida="Cuatro"
-    param-name="RazonSocial"
-    term="NOMBRE"
-    value="CODIGO"
-    placeholder="buuscar cliente tag"
-    id="tag1"
-    url="/Home/BuscarCliente2"
-    tipo-medida="sm"></autocomplete>
-
-<autocomplete
-    dependencias-valor="#selectElement"
-              medida="Cuatro"
-              param-name="RazonSocial"
-              term="NOMBRE"
-              value="CODIGO"
-              placeholder="buuscar cliente tag"
-              id="tag2"
-              url="/Home/BuscarCliente2"
-              tipo-medida="sm"></autocomplete>
+@* <select id="selectElement3" class="selectElementDep form-select"
+        data-url="/Home/LineasNegocio2"
+        data-term="NOMBRE"
+        data-value="CODIGO"
+        data-medida="dos"
+        data-tipo-medida="lg"
+        data-load-immediate="false"
+        data-dependency-valor="#tag2-value">
+</select> *@
 
 @section Scripts{
     <script src="~/js/CompAutoComplete.js" asp-append-version="true"></script>
     <script src="~/js/CompList.js" asp-append-version="true"></script>
+    <script src="~/js/CompListDep.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script src="~/js/CompListMulti.js" asp-append-version="true"></script>
 }

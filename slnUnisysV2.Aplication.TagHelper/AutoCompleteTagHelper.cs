@@ -1,15 +1,8 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Enum = slnUnisysV2.TagHelper.Utils.Enum;
 
 namespace slnUnisysV2.TagHelper
 {
-    public enum Medida
-    {
-        Uno,
-        Dos,
-        Tres,
-        Cuatro,
-        Default
-    }
 
     //[HtmlTargetElement("autocomplete")]
     //public class AutoCompleteTagHelper : Microsoft.AspNetCore.Razor.TagHelpers.TagHelper
@@ -74,7 +67,7 @@ namespace slnUnisysV2.TagHelper
     /// Utiliza un input de texto con funcionalidad de búsqueda a través de AJAX, y permite que otros controles 
     /// afecten los resultados de autocompletado mediante dependencias que se definen en los atributos `data-dependency-*`.
     /// </summary>
-    [HtmlTargetElement("autocomplete")]
+    [HtmlTargetElement("UniAutoComplete")]
     public class AutoCompleteTagHelper : Microsoft.AspNetCore.Razor.TagHelpers.TagHelper
     {
         /// <summary>
@@ -88,7 +81,7 @@ namespace slnUnisysV2.TagHelper
         public string Placeholder { get; set; }
 
         // Enumeración para Medida
-        public Medida Medida { get; set; } = Medida.Dos;
+        public Enum.Medida Medida { get; set; }
 
         public string TipoMedida { get; set; }
 
@@ -107,17 +100,32 @@ namespace slnUnisysV2.TagHelper
             // Ajustar el tamaño según 'Medida'
             switch (Medida)
             {
-                case Medida.Uno:
-                    output.Attributes.SetAttribute("style", "width: 8%;");
+                case Enum.Medida.Uno:
+                    output.Attributes.SetAttribute("style", "width: 10%;");
                     break;
-                case Medida.Dos:
-                    output.Attributes.SetAttribute("style", "width: 16%;");
+                case Enum.Medida.Dos:
+                    output.Attributes.SetAttribute("style", "width: 20%;");
                     break;
-                case Medida.Tres:
-                    output.Attributes.SetAttribute("style", "width: 24%;");
+                case Enum.Medida.Tres:
+                    output.Attributes.SetAttribute("style", "width: 30%;");
                     break;
-                case Medida.Cuatro:
-                    output.Attributes.SetAttribute("style", "width: 32%;");
+                case Enum.Medida.Cuatro:
+                    output.Attributes.SetAttribute("style", "width: 40%;");
+                    break;
+                case Enum.Medida.Cinco:
+                    output.Attributes.SetAttribute("style", "width: 50%;");
+                    break;
+                case Enum.Medida.Seis:
+                    output.Attributes.SetAttribute("style", "width: 60%;");
+                    break;
+                case Enum.Medida.Siete:
+                    output.Attributes.SetAttribute("style", "width: 70%;");
+                    break;
+                case Enum.Medida.Ocho:
+                    output.Attributes.SetAttribute("style", "width: 80%;");
+                    break;
+                case Enum.Medida.Nueve:
+                    output.Attributes.SetAttribute("style", "width: 90%;");
                     break;
                 default:
                     output.Attributes.SetAttribute("style", "width: 100%;");

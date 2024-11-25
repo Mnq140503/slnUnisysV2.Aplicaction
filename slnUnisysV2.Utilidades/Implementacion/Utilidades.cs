@@ -42,6 +42,5 @@ namespace slnUnisysV2.Utilidades.Implementacion
                 return new List<Dictionary<string, object>>();
             }
         }
-
     }
 }
