@@ -1,0 +1,488 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Solictud de Trabajo";
+}
+<style>
+    .ui-autocomplete {
+        z-index: 2000; /* Ajustar a un valor mayor al z-index del modal*/
+    }
+</style>
+<div class="card">
+    <div class="card-header py-3 bg-second-primary">
+        <h6 class="m-0 font-weight-bold text-black">Solicitudes de Clientes</h6>
+    </div>
+    <div class="card-body">
+        <!-- Filtros -->
+        <div class="row mb-3">
+            <div class="col-sm-12">
+                <h6 class="font-weight-bold">Opciones de Filtrado</h6>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label for="filterCentro">Centro Operativo</label>
+                        <UniList id="filterCentro"
+                                 medida="Diez"
+                                 tipo-medida="md"
+                                 term="NOMBRE"
+                                 value="NROCENTROOPERATIVO"
+                                 url="/Home/CentrosPorPerfil"
+                                 data-load-immediate="true">
+                        </UniList>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="filterLinea">Línea</label>
+                        <UniList id="filterLinea"
+                                 medida="Diez"
+                                 tipo-medida="md"
+                                 term="NOMBRE"
+                                 value="CODIGO"
+                                 url="/Home/LineasNegocio"
+                                 data-load-immediate="true">
+                        </UniList>
+                    </div>
+                    <div class="col-sm-3 d-flex align-items-end">
+                        <button id="btnResetFilters" class="btn btn-secondary w-100">Restablecer Filtros</button>
+                    </div>
+                    <div class="col-sm-3 d-flex align-items-end">
+                        <button id="btnAgregar" class="btn btn-primary btn-md" >Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+
+        <!-- Tabla -->
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="tbSolicitud" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Linea</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Embarcacion / Proyecto</th>
+                            <th scope="col">Embarcacion / Proyecto</th>
+                            <th scope="col">Embarcacion / Proyecto</th>
+                            <th scope="col">Embarcacion / Proyecto</th>
+                            <th scope="col">Embarcacion / Proyecto</th>
+                            <th scope="col">Embarcacion / Proyecto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Generar Solicitud</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <!-- Columna Izquierda: Formulario -->
+                        <div class="col-md-8">
+                            <!-- Primera fila: Línea de Negocio y Fecha Registro -->
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Línea de Negocio</label>
+                                        <UniList nombre="Linea de Negocio"
+                                                 id="ltDivision"
+                                                 medida="Diez"
+                                                 tipo-medida="md"
+                                                 term="NOMBRE"
+                                                 value="CODIGO"
+                                                 url="/Home/LineasNegocio"
+                                                 data-load-immediate="true"
+                                                 es-requerido="true">
+                                        </UniList>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Fecha Registro</label>
+                                        <UniDatePicker id="dtRegistro"
+                                                       nombre="Fecha Registro"
+                                                       placeholder="Selecciona una fecha"
+                                                       requerido="true"
+                                                       etiqueta="Fecha de Inicio"
+                                                       date-format="dd/mm/yy"
+                                                       show-week="true"
+                                                       tipo-medida="md"
+                                                       medida="Diez"
+                                                       first-day="1">
+                                        </UniDatePicker>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br />
+
+                            <!-- Segunda fila: Cliente y Línea de Negocio 4 -->
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Cliente</label>
+                                        <UniAutoComplete medida="Diez"
+                                                         param-name="RazonSocial"
+                                                         term="NOMBRE"
+                                                         value="CODIGO"
+                                                         placeholder="Buscar Cliente..."
+                                                         id="acCliente"
+                                                         nombre="Cliente"
+                                                         requerido="true"
+                                                         url="/Home/BuscarCliente2"
+                                                         tipo-medida="md">
+                                        </UniAutoComplete>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Embarcacion</label>
+                                        <UniAutoComplete medida="Diez"
+                                                         param-name="V_NOMBRE"
+                                                         term="NOMBRE"
+                                                         value="CODIGO"
+                                                         placeholder="Buscar Embarcación..."
+                                                         id="acEmbarcacion"
+                                                         url="/Home/BuscarEmbarcacion"
+                                                         tipo-medida="md">
+                                        </UniAutoComplete>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br />
+                            <hr />
+                        </div>
+
+                        <!-- Columna Derecha: Imagen con cuadro delimitador -->
+                        <div class="col-md-4 d-flex align-items-start justify-content-center">
+                            <div class="border rounded p-2" style="width: 100%; height: 100%; text-align: center;">
+                                <img src="https://img.freepik.com/vector-gratis/ilustracion-vector-concepto-abstracto-ciclo-vida-proyecto-gestion-exitosa-proyectos-etapas-finalizacion-proyecto-asignacion-tareas-caso-negocio-metafora-abstracta-requisitos-recursos_335657-2941.jpg?w=2000" alt="Imagen"
+                                     class="img-fluid"
+                                     style="object-fit: contain; max-height: 200px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- Tercera fila: Tres Controles -->
+                            <div class="row">
+                                <h5 style="text-align:center;">Información de Solicitud</h5>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Tipo Solicitud</label>
+                                        <UniList id="ltSolicitud"
+                                                 nombre="Tipo de Solicitud"
+                                                 medida="Diez"
+                                                 tipo-medida="md"
+                                                 term="NOMBRE"
+                                                 value="CODIGO"
+                                                 url="/Home/TipoSolicitud"
+                                                 es-requerido="true"
+                                                 data-load-immediate="true">
+                                        </UniList>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Tipo Trabajo</label>
+                                        <UniList id="ltTipoTrabajo"
+                                                 nombre="Tipo de trabajo"
+                                                 medida="Diez"
+                                                 tipo-medida="md"
+                                                 term="NOMBRE"
+                                                 value="CODIGO"
+                                                 url="/Home/TiposTrabajo"
+                                                 es-requerido="true"
+                                                 data-load-immediate="true">
+                                        </UniList>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Area Solicitante</label>
+                                        <UniList id="ltAreaSolicitante"
+                                                 nombre="Area Solicitante"
+                                                 es-requerido="true"
+                                                 medida="Diez"
+                                                 tipo-medida="md"
+                                                 term="NOMBRE"
+                                                 value="CODIGO"
+                                                 url="/Home/AreasUsuariasxLinea"
+                                                 data-dependency-linea="#ltDivision">
+                                        </UniList>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Referencia</label>
+                                        <UniText id="txtReferencia"
+                                                 nombre="Referencia"
+                                                 placeholder="Ingresar Referencia"
+                                                 es-requerido="false"
+                                                 medida="Diez"
+                                                 tipo-medida="md"
+                                                 max-length="10">
+                                        </UniText>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Fecha Referencia</label>
+                                        <UniDatePicker id="dtReferencia"
+                                                       nombre="Fecha de Referencia"
+                                                       placeholder="Selecciona una fecha"
+                                                       requerido="false"
+                                                       date-format="dd/mm/yy"
+                                                       show-week="true"
+                                                       tipo-medida="md"
+                                                       medida="Diez"
+                                                       first-day="1">
+                                        </UniDatePicker>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Presupuesto</label>
+                                        <UniText id="txtPresupuesto"
+                                                 nombre="Presupuesto"
+                                                 placeholder="Ingresar Presupuesto"
+                                                 es-requerido="true"
+                                                 medida="Diez"
+                                                 tipo-medida="md"
+                                                 max-length="10">
+                                        </UniText>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Revisión</label>
+                                        <UniText id="txtRevision"
+                                                 nombre="Revisión"
+                                                 placeholder="Ingresar Revisión"
+                                                 es-requerido="true"
+                                                 medida="Diez"
+                                                 tipo-medida="md"
+                                                 max-length="10">
+                                        </UniText>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Actividad</label>
+                                        <UniText id="txtActividad"
+                                                 nombre="Actividad"
+                                                 placeholder="Ingresar Actividad"
+                                                 es-requerido="true"
+                                                 medida="Diez"
+                                                 tipo-medida="md"
+                                                 max-length="10">
+                                        </UniText>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Observaciones</label>
+                                        <UniText id="txtObservaciones"
+                                                 nombre="Actividad"
+                                                 placeholder="Ingresar Observaciones"
+                                                 es-requerido="true"
+                                                 medida="Diez"
+                                                 tipo-medida="md"
+                                                 max-length="10"
+                                                 multi-linear="true">
+                                        </UniText>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <h5 style="text-align:center;">Especificación de Alojamiento</h5>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Clase Trabajo</label>
+                                        <UniList id="ltClaseTrabajo"
+                                                 nombre="Clase de Trabajo"
+                                                 medida="Diez"
+                                                 tipo-medida="md"
+                                                 term="NOMBRE"
+                                                 value="CODIGO"
+                                                 url="/Home/ClaseTrabajo"
+                                                 es-requerido="true"
+                                                 data-load-immediate="true">
+                                        </UniList>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Dique</label>
+                                        <UniList id="ltDiques"
+                                                 nombre="Diques"
+                                                 medida="Diez"
+                                                 tipo-medida="md"
+                                                 term="NOMBRE"
+                                                 value="CODIGO"
+                                                 url="/Home/DiquesXCEO"
+                                                 es-requerido="false"
+                                                 data-load-immediate="true">
+                                        </UniList>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Tarifas</label>
+                                        <UniList id="ltTarifas"
+                                                 nombre="Tarifas"
+                                                 medida="Diez"
+                                                 tipo-medida="md"
+                                                 term="NOMBRE"
+                                                 value="CODIGO"
+                                                 url="/Home/Tarifas"
+                                                 es-requerido="true"
+                                                 data-load-immediate="true">
+                                        </UniList>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <h5 style="text-align:center;">Información Operativa</h5>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Fecha Recepción</label>
+                                        <UniDatePicker id="dtRecepcion"
+                                                       nombre="Fecha de Recepción"
+                                                       placeholder="Selecciona una fecha"
+                                                       requerido="true"
+                                                       date-format="dd/mm/yy"
+                                                       show-week="true"
+                                                       tipo-medida="md"
+                                                       medida="Diez"
+                                                       first-day="1">
+                                        </UniDatePicker>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Nro. Sol. MGP</label>
+                                        <UniText id="txtNroSolMGP"
+                                                 nombre="Nro. Sol. MGP"
+                                                 es-requerido="true"
+                                                 placeholder="Ingresar Nro. de Solicitud MGP"
+                                                 medida="Diez"
+                                                 tipo-medida="md"
+                                                 max-length="10">
+                                        </UniText>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Fecha Sol. MGP</label>
+                                        <UniDatePicker id="dtSolicitudMGP"
+                                                       nombre="Fecha de Solicitud MGP"
+                                                       placeholder="Selecciona una fecha"
+                                                       requerido="true"
+                                                       date-format="dd/mm/yy"
+                                                       show-week="true"
+                                                       tipo-medida="md"
+                                                       medida="Diez"
+                                                       first-day="1">
+                                        </UniDatePicker>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Nro IBP</label>
+                                        <UniText id="txtNroIBP"
+                                                 nombre="Nro. de IBP"
+                                                 es-requerido="true"
+                                                 placeholder="Ingresar Nro. de IBP"
+                                                 medida="Diez"
+                                                 tipo-medida="md"
+                                                 max-length="10">
+                                        </UniText>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <h5 style="text-align:center;">Mantenimiento</h5>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Equipo / Bien / Unidad</label>
+                                        <UniText id="txtEquipo"
+                                                 nombre="Equipo / Bien / Unidad"
+                                                 es-requerido="true"
+                                                 placeholder="Ingresar Equipo"
+                                                 medida="Diez"
+                                                 tipo-medida="md"
+                                                 max-length="10">
+                                        </UniText>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Ubicación Equipo</label>
+                                        <UniText id="txtUbicacion"
+                                                 nombre="Ubicación de Equipo"
+                                                 es-requerido="true"
+                                                 placeholder="Ingresar ubicación de Equipo"
+                                                 medida="Diez"
+                                                 tipo-medida="md"
+                                                 max-length="10">
+                                        </UniText>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="btnGuardar" type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="js/SolicitudTrabajo.js"></script>
+    <script src="~/js/CompAutoComplete.js" asp-append-version="true"></script>
+    <script src="~/js/CompList.js" asp-append-version="true"></script>
+    <script src="~/js/CompListDep.js" asp-append-version="true"></script>
+    <script src="~/js/CompDatePicker.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+@*     <script src="~/js/CompListMulti.js" asp-append-version="true"></script> *@
+}

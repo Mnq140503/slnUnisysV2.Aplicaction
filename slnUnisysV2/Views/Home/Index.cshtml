@@ -2,11 +2,11 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
+@* <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
-
+ *@
 <h1>Select</h1>
 <div>
     <div>
@@ -39,7 +39,7 @@
                  tipo-medida="lg"
                  term="NOMBRE"
                  value="CODIGO"
-                 url="/Home/LineaNegocio"
+                 url="/Home/LineasNegocio"
                  data-load-immediate="true"></UniList>
     </div>
 </div>
@@ -141,6 +141,8 @@
         data-dependency-valor="#tag2-value">
 </select> *@
 
+
+
 @section Scripts{
     <script src="~/js/CompAutoComplete.js" asp-append-version="true"></script>
     <script src="~/js/CompList.js" asp-append-version="true"></script>
@@ -148,6 +150,8 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script src="~/js/CompListMulti.js" asp-append-version="true"></script>
 }
+
+
 
 
 

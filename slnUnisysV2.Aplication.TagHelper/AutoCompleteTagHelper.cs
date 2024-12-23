@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using slnUnisysV2.TagHelper.Utils;
 using Enum = slnUnisysV2.TagHelper.Utils.Enum;
 
 namespace slnUnisysV2.TagHelper
@@ -74,6 +75,7 @@ namespace slnUnisysV2.TagHelper
         ///Identificador único del control.
         /// </summary>
         public string Id { get; set; }
+        public string Nombre { get; set; }
         public string Url { get; set; }
         public string ParamName { get; set; }
         public string Term { get; set; }
@@ -83,7 +85,9 @@ namespace slnUnisysV2.TagHelper
         // Enumeración para Medida
         public Enum.Medida Medida { get; set; }
 
-        public string TipoMedida { get; set; }
+        public Enum.TipoMedida TipoMedida { get; set; }
+
+        public bool Requerido { get; set; }
 
         // Dependencias dinámicas
         public Dictionary<string, string> Dependencias { get; set; } = new Dictionary<string, string>();
@@ -96,6 +100,7 @@ namespace slnUnisysV2.TagHelper
             output.Attributes.SetAttribute("id", Id);
             output.Attributes.SetAttribute("type", "text");
             output.Attributes.SetAttribute("class", "autocomplete form-control");
+            output.Attributes.SetAttribute("name", Nombre);
 
             // Ajustar el tamaño según 'Medida'
             switch (Medida)
@@ -127,14 +132,19 @@ namespace slnUnisysV2.TagHelper
                 case Enum.Medida.Nueve:
                     output.Attributes.SetAttribute("style", "width: 90%;");
                     break;
-                default:
+                case Enum.Medida.Diez:
                     output.Attributes.SetAttribute("style", "width: 100%;");
                     break;
             }
 
-            if (!string.IsNullOrEmpty(TipoMedida))
+            if (!string.IsNullOrEmpty(TipoMedida.ToString()))
             {
                 output.Attributes.SetAttribute("class", $"autocomplete form-control-{TipoMedida}");
+            }
+
+            if (Requerido == true)
+            {
+                output.Attributes.AddClass("requerido");
             }
 
             output.Attributes.SetAttribute("data-url", Url);

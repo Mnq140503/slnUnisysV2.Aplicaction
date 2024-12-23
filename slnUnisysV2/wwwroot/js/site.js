@@ -105,3 +105,50 @@
 //});
 
 
+document.addEventListener("DOMContentLoaded", () => {
+    const sidebar = document.getElementById("sidebar");
+    const toggleSidebarButton = document.getElementById("toggle-sidebar");
+    const themeToggleButton = document.getElementById("theme-toggle");
+    const body = document.body;
+
+    // Manejar la compresión del sidebar
+    toggleSidebarButton.addEventListener("click", () => {
+        sidebar.classList.toggle("collapsed");
+    });
+
+    // Alternar tema
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+        body.classList.add("dark-theme");
+    }
+
+    themeToggleButton.addEventListener("click", () => {
+        body.classList.toggle("dark-theme");
+        const currentTheme = body.classList.contains("dark-theme") ? "dark" : "light";
+        localStorage.setItem("theme", currentTheme);
+
+        // Actualizar icono de tema
+        const icon = themeToggleButton.querySelector("i");
+        icon.className = currentTheme === "dark" ? "fas fa-sun" : "fas fa-moon";
+    });
+
+    // Colapsar automáticamente en pantallas pequeñas
+    if (window.innerWidth < 768) {
+        sidebar.classList.add("collapsed");
+    }
+});
+
+
+// Función para mostrar el banner de carga global
+function mostrarBannerCarga() {
+    $("#loading-banner").show();
+}
+
+// Función para ocultar el banner de carga global
+function ocultarBannerCarga() {
+    $("#loading-banner").fadeOut();
+}
+
+
+
+

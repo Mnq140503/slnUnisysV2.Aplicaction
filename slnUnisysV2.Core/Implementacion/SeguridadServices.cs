@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using slnUnisysV2.Core.Interfaces;
 using slnUnisysV2.Utilidades.Interfaces;
 using srvSeguridad;
@@ -12,12 +14,11 @@ namespace slnUnisysV2.Core.Implementacion
     public class SeguridadServices : ISeguridadServices
     {   
         private readonly SeguridadSoapClient _seguridadSoapClient;
-        private readonly IUtilidades _utilidades;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public SeguridadServices(SeguridadSoapClient seguridadSoapClient, IUtilidades utilidades)
+        public SeguridadServices(SeguridadSoapClient seguridadSoapClient)
         {
             _seguridadSoapClient = seguridadSoapClient;
-            _utilidades = utilidades;
         }
 
         public async Task<int> ValidateUserAD(string login, string password)

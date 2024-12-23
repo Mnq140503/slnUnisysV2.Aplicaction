@@ -9,65 +9,69 @@ using Enum = slnUnisysV2.TagHelper.Utils.Enum;
 
 namespace slnUnisysV2.TagHelper
 {
-    /// Este `TagHelper` genera un control de autocompletado con soporte para dependencias dinámicas.
-    /// Utiliza un input de texto con funcionalidad de búsqueda a través de AJAX, y permite que otros controles 
-    /// afecten los resultados de autocompletado mediante dependencias que se definen en los atributos `data-dependency-*`.
-    /// </summary>
-    [HtmlTargetElement("UniList")]
-    public class ListTagHelper : Microsoft.AspNetCore.Razor.TagHelpers.TagHelper
+    [HtmlTargetElement("UniText")]
+    public class TextTagHelper : Microsoft.AspNetCore.Razor.TagHelpers.TagHelper
     {
         /// <summary>
-        ///Nombre único del control.
+        /// Nombre único del control.
         /// </summary>
         public string Nombre { get; set; }
 
         /// <summary>
-        ///Identificador único del control.
+        /// Identificador único del control.
         /// </summary>
         public string Id { get; set; }
 
         /// <summary>
-        ///Url del WS que retorna información para el control
+        /// Placeholder del control.
         /// </summary>
-        public string Url { get; set; }
+        public string Placeholder { get; set; }
 
         /// <summary>
-        ///Valor del WS que se mostrara al usuario (DisplayText)
+        /// Indica si el control es requerido.
         /// </summary>
-        public string Term { get; set; }
+        public bool EsRequerido { get; set; } = false;
 
         /// <summary>
-        ///Valor del WS que indica el valor de los items listados (DataValue)
-        /// </summary>
-        public string Value { get; set; }
-
-        /// <summary>
-        ///Medida del Control
+        /// Medida del control (por ejemplo, Diez, Veinte, etc.).
         /// </summary>
         public Enum.Medida Medida { get; set; }
 
         /// <summary>
-        ///Tipo de Medida del Control
+        /// Tipo de medida del control (por ejemplo, md, lg, etc.).
         /// </summary>
         public Enum.TipoMedida TipoMedida { get; set; }
 
         /// <summary>
-        ///Atributo de enlace a depedencias con clave ${#idcontroldepedencia}
+        /// Longitud máxima del texto permitido.
         /// </summary>
-        public Dictionary<string, string> Dependencias { get; set; } = new Dictionary<string, string>();
+        public int? MaxLength { get; set; }
 
         /// <summary>
-        /// Propiedad para indicar si el control es requerido
+        /// Define si el control es un input (Linear) o un textarea (MultiLinear).
         /// </summary>
-        public bool EsRequerido { get; set; }
+        public bool MultiLinear { get; set; } = false;
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.TagName = "select";
+            // Cambiar el tipo de etiqueta según MultiLinear
+            output.TagName = MultiLinear ? "textarea" : "input";
 
-            // Atributos básicos del control
+            // Atributos básicos
             output.Attributes.SetAttribute("id", Id);
-            output.Attributes.SetAttribute("class", "selectElement form-select");
+            output.Attributes.SetAttribute("name", Nombre);
+            output.Attributes.SetAttribute("placeholder", Placeholder);
+
+            // Atributos condicionales
+            if (EsRequerido)
+            {
+                output.Attributes.AddClass("requerido");
+            }
+
+            if (MaxLength.HasValue)
+            {
+                output.Attributes.SetAttribute("maxlength", MaxLength.Value);
+            }
 
             // Ajustar el tamaño según 'Medida'
             switch (Medida)
@@ -87,25 +91,18 @@ namespace slnUnisysV2.TagHelper
             // Añadir clase para TipoMedida
             if (!string.IsNullOrEmpty(TipoMedida.ToString()))
             {
-                output.Attributes.SetAttribute("class", $"selectElement form-select form-control-{TipoMedida}");
+                output.Attributes.AddClass($" form-control form-control-{TipoMedida}");
             }
 
-            // Agregar clase "requerido" si EsRequerido es true
-            if (EsRequerido)
+            // Configuración específica para textarea
+            if (MultiLinear)
             {
-                output.Attributes.AddClass("requerido");
+                output.Attributes.SetAttribute("rows", "4"); // Número de filas predeterminadas
+                output.Attributes.AddClass("textareaElement");
             }
-
-            // Atributos adicionales
-            output.Attributes.SetAttribute("data-url", Url);
-            output.Attributes.SetAttribute("data-term", Term);
-            output.Attributes.SetAttribute("data-value", Value);
-            output.Attributes.SetAttribute("name", Nombre);
-
-            // Agregar dependencias como atributos data
-            foreach (var dependencia in Dependencias)
+            else
             {
-                output.Attributes.SetAttribute($"data-dependency-{dependencia.Key}", dependencia.Value);
+                output.Attributes.AddClass("inputElement");
             }
         }
     }

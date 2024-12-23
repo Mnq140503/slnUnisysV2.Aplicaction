@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using Microsoft.Extensions.Configuration;
+
 namespace srvSeguridad
 {
     
@@ -15,7 +17,7 @@ namespace srvSeguridad
     [System.ServiceModel.ServiceContractAttribute(Namespace="http://CoreSIMAdll.org/", ConfigurationName="srvSeguridad.SeguridadSoap")]
     public interface SeguridadSoap
     {
-        
+
         [System.ServiceModel.OperationContractAttribute(Action="http://CoreSIMAdll.org/GetPerfiles", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BaseBE))]
@@ -653,6 +655,9 @@ namespace srvSeguridad
         
         private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
         {
+            IConfiguration _configuration = new ConfigurationManager();
+            var endPointBase = _configuration.GetSection("WcfSettings:PointSeguridad");
+            
             if ((endpointConfiguration == EndpointConfiguration.SeguridadSoap))
             {
                 return new System.ServiceModel.EndpointAddress("http://10.10.90.4:7000/Core/Seguridad/Seguridad.asmx");

@@ -19,6 +19,7 @@ namespace slnUnisysV2.TagHelper.Utils
             Siete,
             Ocho,
             Nueve,
+            Diez
         }
 
         public enum TipoMedida

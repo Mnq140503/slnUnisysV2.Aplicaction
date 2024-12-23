@@ -1,9 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 using slnUnisysV2.Core.Implementacion;
 using slnUnisysV2.Core.Interfaces;
 using slnUnisysV2.Utilidades.Interfaces;
 using slnUnisysV2.Utilidades.Implementacion;
 using srvGeneral;
+using srvGestionComercial;
 using srvSeguridad;
 
 namespace slnUnisysV2.IOC
@@ -26,8 +29,15 @@ namespace slnUnisysV2.IOC
                 return new SeguridadSoapClient(endpointConfiguration);
             });
 
+            services.AddScoped<SolicitudSoapClient>(provider =>
+            {
+                var endpointConfiguration = SolicitudSoapClient.EndpointConfiguration.SolicitudSoap;
+                return new SolicitudSoapClient(endpointConfiguration);
+            });
+
             services.AddScoped<IGeneralServices, GeneralServices>();
             services.AddScoped<ISeguridadServices, SeguridadServices>();
+            services.AddScoped<IComercialServices, ComercialServices>();
         }
     }
 }
